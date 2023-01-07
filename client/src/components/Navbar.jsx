@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 import logo from '../../src/assets/logo.png'
 import search from '../../src/assets/search-solid.svg'
 import Avatar from '../../src/components/Avatar/Avatar'
-import Button from '../../src/components/Button/Button'
 import './Navbar.css'
 const Navbar = () => {
 
@@ -25,8 +24,8 @@ const Navbar = () => {
              { User === null ? 
                 <Link to='/Auth' className='nav-item nav-links'>Log in</Link> :
                 <>
-                  <Link to='/' className=''><Avatar/></Link>
-                  <Button>Log out</Button>
+                  <Avatar backgroundColor='#009dff' px = '10px'  py = '7px' borderRadius='50%' color = 'white'><Link to='/User' style={{color: "white",textDecoration: 'none'}}>M</Link></Avatar>
+                  <button className='nav-item nav-links' >Log out</button>
                 </>
              }
         </div>
