@@ -5,12 +5,11 @@ import WidgetTags from './WidgetTags'
 
 const RightSidebar = () => {
   return (
-    <div>
       <aside className='right-sidebar'>
          <Widget />
          <WidgetTags/>
       </aside>
-    </div>
+    
   )
 }
 
