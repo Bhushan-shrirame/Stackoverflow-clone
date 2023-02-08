@@ -13,13 +13,11 @@ const QuestionsDetails = () => {
 
     const { id } = useParams()
     const questionsList = useSelector(state => state.questionReducer)
-
-
     const [Answer, setAnswer] = useState('')
     const Navigate = useNavigate()
     const dispatch = useDispatch()
     const User = useSelector((state) => (state.currentUserReducer))
-   const handlePosAns = (e, answerLength) => {
+    const handlePostAns = (e, answerLength) => {
        e.preventDefault()
        if(User === null){
            alert('Login or Signup to answer a question')
@@ -28,7 +26,7 @@ const QuestionsDetails = () => {
          if(Answer === ''){
             alert('Enter an answer before submitting')
          } else{
-            dispatch(postAnswer({id,noOfAnswers: answerLength +1, answerBody: Answer,userAnswered:User.result.name}))
+            dispatch(postAnswer({id,noOfAnswers: answerLength +1, answerBody: Answer,userAnswered: User.result.name}))
          }
        }
    }
@@ -87,7 +85,7 @@ const QuestionsDetails = () => {
                     }
                     <section className='post-ans-container'>
                         <h3>Your Answers</h3>
-                        <form onSubmit={(e) => {handlePosAns(e,question.answer.length)}}>
+                        <form onSubmit={(e) => {handlePostAns(e,question.answer.length)}}>
                             <textarea name="" id="" cols="30" rows="10" onChange={e => setAnswer(e.target.value)}></textarea><br/>
                             <input type="Submit" className='post-ans-btn' value='Post Your Answer'/>
                         </form>
