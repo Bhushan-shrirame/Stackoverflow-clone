@@ -1,11 +1,12 @@
-import React from 'react'
-import {Link, useParams} from 'react-router-dom'
+import React,{useState} from 'react'
+import {Link, useParams , useNavigate} from 'react-router-dom'
 import upvote from '../../assets/sort-up.svg'
 import downvote from '../../assets/sort-down.svg'
 import './Questions.css'
 import Avatar from '../../components/Avatar/Avatar'
 import DisplayAnswer from './DisplayAnswer'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import { postAnswer } from '../../actions/question.js'
 
 
 const QuestionsDetails = () => {
@@ -13,58 +14,25 @@ const QuestionsDetails = () => {
     const { id } = useParams()
     const questionsList = useSelector(state => state.questionReducer)
 
-    // var questionsList = [{ 
-    //     _id: '1',
-    //     upVotes: 3,
-    //     downVotes: 2,
-    //     noOfAnswers: 2,
-    //     questionTitle: "What is a function?",
-    //     questionBody: "It meant to be",
-    //     questionTags: ["java", "node js", "react js", "mongo db", "express js"],
-    //     userPosted: "mano",
-    //     userId: 1,
-    //     askedOn: "jan 1",
-    //     answer: [{
-    //         answerBody: "Answer",
-    //         userAnswered: 'kumar',
-    //         answeredOn: "jan 2",
-    //         userId: 2,
-    //     }]
-    // },{ 
-    //     _id: '2',
-    //     upVotes: 3,
-    //     downVotes: 2,
-    //     noOfAnswers: 0,
-    //     questionTitle: "What is a function?",
-    //     questionBody: "It meant to be",
-    //     questionTags: ["javascript", "R", "python"],
-    //     userPosted: "mano",
-    //     askedOn: "jan 1",
-    //     userId: 1,
-    //     answer: [{
-    //         answerBody: "Answer",
-    //         userAnswered: 'kumar',
-    //         answeredOn: "jan 2",
-    //         userId: 2,
-    //     }]
-    // },{ 
-    //     _id: '3',
-    //     upVotes: 3,
-    //     downVotes: 2,
-    //     noOfAnswers: 0,
-    //     questionTitle: "What is a function?",
-    //     questionBody: "It meant to be",
-    //     questionTags: ["javascript", "R", "python"],
-    //     userPosted: "mano",
-    //     askedOn: "jan 1",
-    //     userId: 1,
-    //     answer: [{
-    //         answerBody: "Answer",
-    //         userAnswered: 'kumar',
-    //         answeredOn: "jan 2",
-    //         userId: 2,
-    //     }]
-    // }]
+
+    const [Answer, setAnswer] = useState('')
+    const Navigate = useNavigate()
+    const dispatch = useDispatch()
+    const User = useSelector((state) => (state.currentUserReducer))
+   const handlePosAns = (e, answerLength) => {
+       e.preventDefault()
+       if(User === null){
+           alert('Login or Signup to answer a question')
+           Navigate('/Auth')
+       }else{
+         if(Answer === ''){
+            alert('Enter an answer before submitting')
+         } else{
+            dispatch(postAnswer({id,noOfAnswers: answerLength +1, answerBody: Answer,userAnswered:User.result.name}))
+         }
+       }
+   }
+
   return (
     <div className='question-details-page'>
        {
@@ -112,15 +80,15 @@ const QuestionsDetails = () => {
                     {
                         question.noOfAnswers !== 0 && (
                             <section>
-                                <h3>{question.noOfAnswers} answers</h3>
+                                <h3>{question.noOfAnswers} Answers</h3>
                                 <DisplayAnswer key = {question._id} question={question}/>
                             </section>
                         )
                     }
                     <section className='post-ans-container'>
                         <h3>Your Answers</h3>
-                        <form>
-                            <textarea name="" id="" cols="30" rows="10"></textarea><br/>
+                        <form onSubmit={(e) => {handlePosAns(e,question.answer.length)}}>
+                            <textarea name="" id="" cols="30" rows="10" onChange={e => setAnswer(e.target.value)}></textarea><br/>
                             <input type="Submit" className='post-ans-btn' value='Post Your Answer'/>
                         </form>
                         <p>
