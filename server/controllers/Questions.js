@@ -13,3 +13,13 @@ export const AskQuestion = async (req, res) => {
         res.status(409).json("Couldn't post a new question")        
     }
 }
+
+export const getAllQuestions =  async (req, res) => {
+    try {
+        const questionList = await Questions.find();
+        res.status(200).json(questionList);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+        
+    }
+}
