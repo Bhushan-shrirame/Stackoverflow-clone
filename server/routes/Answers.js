@@ -3,6 +3,6 @@ import {postAnswer} from '../controllers/Answers.js'
 
 const router = express.Router();
 
-router.patch('post/:id',postAnswer)
+router.patch('/post/:id',postAnswer)
 
-export default router
+export default router
