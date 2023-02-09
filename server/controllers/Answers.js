@@ -2,10 +2,11 @@ import mongoose from "mongoose";
 import Questions from "../models/Questions.js";
 
 export const postAnswer = async(req,res) => {
-    const{id: _id} = req.params;
+    const{id: id} = req.params;
     const{noOfAnswers, answerBody, userAnswered} = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id)){
+        console.log(error)
         return res.status(404).send('question unavailable...')
     }
     updateNoOfQuestioins(_id, noOfAnswers)
