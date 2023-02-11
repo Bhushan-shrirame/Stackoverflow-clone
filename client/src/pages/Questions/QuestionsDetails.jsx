@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import {Link, useParams , useNavigate, useLocation} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
 import moment from 'moment'
 import copy from 'copy-to-clipboard'
 
@@ -8,10 +9,7 @@ import downvote from '../../assets/sort-down.svg'
 import './Questions.css'
 import Avatar from '../../components/Avatar/Avatar'
 import DisplayAnswer from './DisplayAnswer'
-import {useSelector, useDispatch} from 'react-redux'
 import { postAnswer, deleteQuestion ,voteQuestion} from '../../actions/question.js'
-
-
 
 
 const QuestionsDetails = () => {
@@ -49,11 +47,11 @@ const QuestionsDetails = () => {
     }
 
     const handleUpVote = () => {
-        dispatch(voteQuestion(id,'upvote', User.result._id))
+        dispatch(voteQuestion(id,'upVote', User.result._id))
     }
 
     const handleDownVote = () => {
-        dispatch(voteQuestion(id,'downvote', User.result._id))
+        dispatch(voteQuestion(id,'downVote', User.result._id))
     }
  
   return ( 
