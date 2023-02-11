@@ -1,5 +1,4 @@
 import React from "react";
-import QuestionsDetails from "./QuestionsDetails";
 import { Link,useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment'
