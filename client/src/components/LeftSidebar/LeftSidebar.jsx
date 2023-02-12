@@ -24,7 +24,7 @@ const LeftSidebar = () => {
                 </NavLink>
             </div>
         </nav>
-
+        
     </div>
   )
 }
