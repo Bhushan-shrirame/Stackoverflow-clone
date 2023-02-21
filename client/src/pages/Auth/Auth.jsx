@@ -43,7 +43,7 @@ const Auth = () => {
         { !isSignup && <img src ={icon} alt = 'stack overflow' className='login-logo' />}
         <form onSubmit={handleSubmit}>
            {
-            isSignup && (
+            isSignup && ( 
               <label htmlFor='name'>
                 <h4>Display Name</h4>
                 <input type="text" id = 'name' name = 'name' onChange={(e) => {setName(e.target.value)}}/>

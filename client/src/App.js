@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import AllRoutes from './AllRoutes';
 import { fetchAllQuestions } from './actions/question';
 import { fetchAllUsers } from './actions/users';
+import KommunicateChat from './chat';
 function App() {
     
   const dispatch = useDispatch()
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Navbar/>
         <AllRoutes/>
+        <KommunicateChat/>
       </Router>
     </div>
   );

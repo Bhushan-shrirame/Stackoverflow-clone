@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useSelector} from 'react-redux'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBirthdayCake, faPen } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
@@ -18,6 +18,18 @@ const UserProfile = () => {
     const currentProfile = users.filter((user) => user.id === id)[0]
     const currentUser = useSelector((state) => state.currentUserReducer)
     const [Switch, setSwitch] = useState(false)
+    const Navigate = useNavigate()
+    
+    const handleclick = () =>{
+        console.log(currentProfile.verified)
+        if (currentProfile?.verified !== false){
+            Navigate('./verify')
+        }
+        else{
+            alert("User is Verified")
+        }
+
+    }
 
     return (
         <div className='home-container-1'>
@@ -32,7 +44,19 @@ const UserProfile = () => {
                             <div className="user-name">
                                 <h1>{currentProfile?.name}</h1>
                                 <p><FontAwesomeIcon icon={faBirthdayCake} /> Joined {moment(currentProfile?.joinedOn).fromNow()}</p>
+                                
+                                
+                                
+                                {
+                                    currentUser?.result._id === id && (
+                                        <button type='button' onClick={handleclick} className='edit-profile-btn'>
+                                            <FontAwesomeIcon icon={faPen} /> Verify Account
+                                        </button>
+                                    ) 
+                                }
+                                
                             </div>
+                            
                         </div>
                         {
                             currentUser?.result._id === id && (
