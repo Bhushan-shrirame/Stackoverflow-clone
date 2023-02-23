@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     about: {type: String },
     tags: {type: [String] },
     joinedOn: {type: Date, default: Date.now },
-    verified : {type: Boolean}
+    verified : {type: Boolean, default: false}
     
 })
 

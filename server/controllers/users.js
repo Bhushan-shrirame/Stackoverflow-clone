@@ -31,3 +31,21 @@ export const updateProfile = async (req, res) => {
        
    }
 }
+
+export const verifyuser = async (req, res) => {
+    // const { id: _id } = req.params;
+    const { id , verified } = req.body;
+ 
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).send('question unavailable...');
+    }
+ 
+    try {
+        const updatedProfile = await User.findByIdAndUpdate( id, { $set: { 'verified': verified}}, { new: true } )
+        res.status(200).json(updatedProfile)
+    } catch (error) {
+        console.log(error)
+        res.status(405).json({ message: error.message })
+        
+    }
+ }

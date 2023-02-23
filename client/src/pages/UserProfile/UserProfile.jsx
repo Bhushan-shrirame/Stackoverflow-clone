@@ -14,6 +14,7 @@ import Avatar from '../../components/Avatar/Avatar'
 import EditProfileForm from './EditProfileForm'
 import ProfileBio from './ProfileBio'
 import './UsersProfile.css'
+import { verifyuser } from '../../api'
 
 const UserProfile = () => {
 
@@ -27,15 +28,14 @@ const UserProfile = () => {
     const GoogleLogin = async () => {
        try {
           const result = await signInWithPopup(auth , googleProvider)
-          console.log(result.user)
+          console.log("result",result.user)
+          verifyuser({verified: result.user.emailVerified , id: id})
        } catch (error) {
          console.log(error)
        }
     }
 
     const [user , loading ] = useAuthState(auth);
-    console.log(user)
-
     return (
         <div className='home-container-1'>
             <LeftSidebar />
@@ -53,20 +53,14 @@ const UserProfile = () => {
                                 
                                 
                                 {
-                                    user
-                                    && (
+                                    !currentProfile.verified
+                                    ? (
                                         <button type='button' onClick={GoogleLogin} className='edit-profile-btn'>
                                             <FontAwesomeIcon icon={faPen} /> Verify Account
                                         </button>
-                                    ) 
-                                }
-
-                                {
-                                    user && (
-                                        <button type='button'  className='edit-profile-btn'>
-                                            <FontAwesomeIcon icon={faPen} /> Verified
-                                        </button>
-                                    ) 
+                                    ) : (<button type='button'  className='edit-profile-btn'>
+                                    <FontAwesomeIcon icon={faPen} /> Verified
+                                </button>)
                                 }
                                 
                             </div>
