@@ -5,6 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBirthdayCake, faPen } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 
+import {auth} from './firebase'
+import { GoogleAuthProvider,signInWithPopup } from 'firebase/auth'
+import {useAuthState} from "react-firebase-hooks/auth"
+
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar'
 import Avatar from '../../components/Avatar/Avatar'
 import EditProfileForm from './EditProfileForm'
@@ -18,18 +22,19 @@ const UserProfile = () => {
     const currentProfile = users.filter((user) => user.id === id)[0]
     const currentUser = useSelector((state) => state.currentUserReducer)
     const [Switch, setSwitch] = useState(false)
-    const Navigate = useNavigate()
-    
-    const handleclick = () =>{
-        console.log(currentProfile.verified)
-        if (currentProfile?.verified !== false){
-            Navigate('./verify')
-        }
-        else{
-            alert("User is Verified")
-        }
 
+    const googleProvider = new GoogleAuthProvider()
+    const GoogleLogin = async () => {
+       try {
+          const result = await signInWithPopup(auth , googleProvider)
+          console.log(result.user)
+       } catch (error) {
+         console.log(error)
+       }
     }
+
+    const [user , loading ] = useAuthState(auth);
+    console.log(user)
 
     return (
         <div className='home-container-1'>
@@ -48,9 +53,18 @@ const UserProfile = () => {
                                 
                                 
                                 {
-                                    currentUser?.result._id === id && (
-                                        <button type='button' onClick={handleclick} className='edit-profile-btn'>
+                                    user
+                                    && (
+                                        <button type='button' onClick={GoogleLogin} className='edit-profile-btn'>
                                             <FontAwesomeIcon icon={faPen} /> Verify Account
+                                        </button>
+                                    ) 
+                                }
+
+                                {
+                                    user && (
+                                        <button type='button'  className='edit-profile-btn'>
+                                            <FontAwesomeIcon icon={faPen} /> Verified
                                         </button>
                                     ) 
                                 }

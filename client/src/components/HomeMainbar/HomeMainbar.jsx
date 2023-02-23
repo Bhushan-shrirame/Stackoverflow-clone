@@ -5,19 +5,24 @@ import QuestionList from './QuestionList'
 import {useSelector} from 'react-redux'
 import KommunicateChat from '../../chat'
 
-
+import {auth} from '/Stackoverflow-clone/client/src/pages/UserProfile/firebase.js'
+import {useAuthState} from "react-firebase-hooks/auth"
 
 const HomeMainbar = () => {
 
 
     const location = useLocation()
-    const user = 1;
+    const users = 1;
     const navigate = useNavigate()
 
     const questionsList = useSelector(state => state.questionReducer)
     
+    const [user , loading ] = useAuthState(auth);
+    
+    console.log(user)
+ 
     const checkAuth = () => {
-      if(user === null){
+      if(users === null){
         alert("login or signup to ask a question")
         navigate('/Auth')
       }else{
@@ -42,7 +47,9 @@ const HomeMainbar = () => {
           </>
         }
       </div>
-      <KommunicateChat/>
+      {
+        user && <KommunicateChat/>
+      }
       
     </div> 
     
