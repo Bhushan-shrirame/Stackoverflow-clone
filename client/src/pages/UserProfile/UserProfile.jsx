@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {useSelector} from 'react-redux'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBirthdayCake, faPen } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 
 import {auth} from './firebase'
 import { GoogleAuthProvider,signInWithPopup } from 'firebase/auth'
-import {useAuthState} from "react-firebase-hooks/auth"
+// import {useAuthState} from "react-firebase-hooks/auth"
 
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar'
 import Avatar from '../../components/Avatar/Avatar'
@@ -15,6 +15,7 @@ import EditProfileForm from './EditProfileForm'
 import ProfileBio from './ProfileBio'
 import './UsersProfile.css'
 import { verifyuser } from '../../api'
+import KommunicateChat from '../../chat';
 
 const UserProfile = () => {
 
@@ -34,8 +35,10 @@ const UserProfile = () => {
          console.log(error)
        }
     }
+    console.log(currentProfile.verified)
+    
 
-    const [user , loading ] = useAuthState(auth);
+    // const [user , loading ] = useAuthState(auth);
     return (
         <div className='home-container-1'>
             <LeftSidebar />
@@ -52,7 +55,7 @@ const UserProfile = () => {
                                 
                                 
                                 
-                                {
+                                { 
                                     !currentProfile.verified
                                     ? (
                                         <button type='button' onClick={GoogleLogin} className='edit-profile-btn'>
@@ -85,6 +88,11 @@ const UserProfile = () => {
                     </>
                 </section>
             </div>
+            {
+                 currentUser?.result._id === id && (
+                     <KommunicateChat/>
+                ) 
+            }
         </div>
     )
 }

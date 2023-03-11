@@ -3,32 +3,23 @@ import {useLocation , useNavigate} from 'react-router-dom'
 import './HomeMainbar.css'
 import QuestionList from './QuestionList'
 import {useSelector} from 'react-redux'
-import KommunicateChat from '../../chat'
-
-import {auth} from '/Stackoverflow-clone/client/src/pages/UserProfile/firebase.js'
-import {useAuthState} from "react-firebase-hooks/auth"
 
 const HomeMainbar = () => {
 
 
     const location = useLocation()
-    const users = 1;
+    const user = 1;
     const navigate = useNavigate()
 
     const questionsList = useSelector(state => state.questionReducer)
     
-    const [user , loading ] = useAuthState(auth);
-    
-    console.log(user)
- 
     const checkAuth = () => {
-      if(users === null){
+      if(user === null){
         alert("login or signup to ask a question")
         navigate('/Auth')
       }else{
         navigate('/AskQuestion')
       }
-
     }
   return (
     <div className='main-bar'>
@@ -46,11 +37,7 @@ const HomeMainbar = () => {
             <QuestionList questionsList ={questionsList.data} />
           </>
         }
-      </div>
-      {
-        user && <KommunicateChat/>
-      }
-      
+      </div>      
     </div> 
     
   )

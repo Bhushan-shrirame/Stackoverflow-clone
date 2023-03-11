@@ -8,7 +8,7 @@ const Users = () => {
             <LeftSidebar />
             <div className="home-container-2" style={{marginTop: "30px"}}>
                  <h1 style={{fontWeight: "400"}}> Users</h1>              
-                    <UsersList/>: 
+                    <UsersList/>
             </div>
     </div>
     

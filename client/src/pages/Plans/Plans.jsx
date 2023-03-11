@@ -18,7 +18,9 @@ const plans = () => {
                   <p>Can post only 1 question a day</p>
                 </div>
                 <div className='bottom'>
+                  <a href="/">
                   <button className='buynowbtn'>Start free trial</button>
+                  </a>
                 </div>
             </div>
              
@@ -31,7 +33,9 @@ const plans = () => {
                   <p>Can post 5 questions a day</p>
                 </div>
                 <div className='bottom'>
+                  <a href="https://buy.stripe.com/8wM14VaZqb4CdBC3cc">
                   <button className='buynowbtn'>Get Started</button>
+                  </a>
                 </div>
             </div>
              
@@ -44,7 +48,9 @@ const plans = () => {
                   <p>Can post unlimited  questions</p>
                 </div>
                 <div className='bottom'>
+                <a href="https://buy.stripe.com/3cs14Vd7yc8G1SU145">
                   <button className='buynowbtn'>Get Started</button>
+                  </a>
                 </div>
             </div>
 
